@@ -23,23 +23,27 @@ def generate_launch_description():
     # Include the gazebo.launch.py file
     gazebo=IncludeLaunchDescription(
         PythonLaunchDescriptionSource([get_package_share_directory('ros_gz_sim'), '/launch/gz_sim.launch.py']),launch_arguments={
-                    'gz_args' : world_path + " -v 4"
-                }.items())
+                    'gz_args' : [world_path + " -v 4"] , 'on_exit_shutdown' : 'true'
+                }.items()
+        )
     
     # spawn robot with rviz
     robot = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(pkg_mr_robot_desc, 'launch', 'robot.launch.py')
                 ),
-                # launch_arguments={
-                #     'rviz': 'true',
-                #     'with_bridge': 'true'
-                # }.items()
+                launch_arguments={
+                    'rviz': 'true',
+                    'with_bridge': 'true'
+                }.items()
             )
+    
+    
 
     
     return LaunchDescription([
         gazebo,
+        robot ,
     ])
 
 

@@ -48,12 +48,20 @@ def generate_launch_description():
     )
 
     # parameter bridge node to bridge different gz and tos 2 topics
-    ros_gz_bridge = Node(package="ros_gz_bridge", 
+    ros_gz_bridge = Node(
+                package="ros_gz_bridge", 
                 executable="parameter_bridge",
                 parameters = [
                     {'config_file': bridge_config}],
                 # condition=IfCondition(with_bridge)
                 )
+    
+    ros_gz_image_bridge = Node(
+        package="ros_gz_image" ,
+        executable="image_bridge" , 
+        arguments=("/camera/image_raw")  
+    )
+    
     # launch rviz node if rviz parameter was set to true
     rviz = Node(package='rviz2',
                 executable='rviz2',
@@ -65,6 +73,7 @@ def generate_launch_description():
     # map_stf = Node(package="tf2_ros",
     #                executable="static_transform_publisher",
     #                arguments=["0","0","0","0.0","0.0","0.0","map","odom"])
+    
     arg_use_sim_time = DeclareLaunchArgument('use_sim_time',
 											default_value='true',
 											description="Enable sim time from /clock")
@@ -75,6 +84,7 @@ def generate_launch_description():
         robot_spawn,
         ros_gz_bridge,
         rviz,
+        ros_gz_image_bridge ,
         # map_stf
         # arg_with_bridge
     ])
