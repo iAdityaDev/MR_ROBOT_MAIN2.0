@@ -6,6 +6,7 @@
 <xacro:property name="wheel_color" value="Gazebo/Black" />
 <xacro:property name="gpu_lidar_color" value="Gazebo/Blue" />
 <xacro:property name="base_color" value="Gazebo/Yellow" />
+<xacro:property name="depth_camera_color" value="Gazebo/dark_blue" />
 
 <!-- <gazebo>
   <plugin name="control" filename="libgazebo_ros_control.so"/>
@@ -88,9 +89,10 @@
 <plugin filename="gz-harmonic-camera-system" name="gz::harmonic::systems::CameraSystem"/>
     <sensor type="camera" name="camera">
       <visualize>true</visualize>
+      <always_on>true</always_on>
       <update_rate>10.0</update_rate>
       <camera name="head">
-        <camera_info_topic>camera/camera_info</camera_info_topic>
+        <!-- <camera_info_topic>camera/camera_info</camera_info_topic> -->
         <horizontal_fov>1.3962634</horizontal_fov>  <!-- 80 degrees-->
         <image>
           <width>800</width>
@@ -106,6 +108,31 @@
       <gz_frame_id>camera_link_optical</gz_frame_id>
     </sensor>
   </gazebo>
+
+<gazebo reference="mr_robot/base_link/depth_camera">
+<plugin filename="gz-sim-depth-camera-system" name="gz::sim::systems::DepthCamera"/>
+  <sensor type="depth_camera" name="depth_camera">
+        <visualize>true</visualize>
+        <always_on>true</always_on>
+        <enable_metrics>true</enable_metrics>
+        <update_rate>10</update_rate>
+        <camera name = "Deep">
+          <camera_info_topic>depth_camera/depth_camera_info</camera_info_topic>
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R_FLOAT32</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+        </camera>
+        <topic>depth_camera</topic>
+        <gz_frame_id>camera_link_optical</gz_frame_id>
+      </sensor>
+</gazebo>  
 
 <gazebo reference="base_link">
   <material>${base_color}</material>
@@ -143,4 +170,10 @@
   <selfCollide>true</selfCollide>
 </gazebo>
 
+<gazebo reference="mr_robot/base_link/depth_camera">
+  <material>${depth_camera_color}</material>
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <selfCollide>true</selfCollide>
+</gazebo>
 </robot>

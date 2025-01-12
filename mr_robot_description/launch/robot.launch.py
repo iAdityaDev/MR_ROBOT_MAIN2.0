@@ -56,11 +56,11 @@ def generate_launch_description():
                 # condition=IfCondition(with_bridge)
                 )
     
-    ros_gz_image_bridge = Node(
-        package="ros_gz_image" ,
-        executable="image_bridge" , 
-        arguments=("/camera/image_raw")  
-    )
+    # ros_gz_image_bridge = Node(
+    #     package="ros_gz_image" ,
+    #     executable="image_bridge" , 
+    #     arguments=("/camera/image_raw")  
+    # )
     
     # launch rviz node if rviz parameter was set to true
     rviz = Node(package='rviz2',
@@ -84,7 +84,7 @@ def generate_launch_description():
         robot_spawn,
         ros_gz_bridge,
         rviz,
-        ros_gz_image_bridge ,
+        # ros_gz_image_bridge ,
         # map_stf
         # arg_with_bridge
     ])
