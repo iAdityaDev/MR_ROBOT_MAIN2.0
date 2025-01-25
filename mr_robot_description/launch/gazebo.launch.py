@@ -18,7 +18,7 @@ def generate_launch_description():
                                             # description="Set true to bridge ROS 2 & Gz topics")
     #path to xacro file
     pkg_mr_robot_desc=get_package_share_directory("mr_robot_description")
-    world_path= get_package_share_directory("mr_robot_description")+"/worlds/world.sdf"
+    world_path= get_package_share_directory("mr_robot_description")+"/worlds/aruco.sdf"
     
     # Include the gazebo.launch.py file
     gazebo=IncludeLaunchDescription(
