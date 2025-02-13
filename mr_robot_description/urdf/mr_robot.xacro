@@ -56,7 +56,22 @@
   </collision>
 </link>
 
- <!-- <link name="camera_link">
+<joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0.27 0 0.14"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+<joint name="camera_optical_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_link_optical"/>
+    <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+  </joint>
+
+<link name="camera_link_optical"></link>
+
+ <link name="camera_link">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -64,8 +79,8 @@
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>     <!-- roll pitch and yaw in radians and xyz in meters-->
+      <geometry> 
         <box size="0.05 0.05 0.05"/>
       </geometry>
       <material name="red"/>
@@ -75,16 +90,38 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
-  </link> -->
+  </link>
 
-  <!-- <joint name="camera_joint" type="fixed">
-    <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="0.05 0 0.9"/>
-    <parent link="link3"/>
-    <child link="camera_link"/>
-  </joint> -->
+  <joint name="depth_camera_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0.27 0.1 0.14" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="mr_robot/base_link/depth_camera"/>
+  </joint>
 
-<link name="Wheel_r_1">
+ 
+  <link name="mr_robot/base_link/depth_camera">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="dark_blue"/>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="Wheel_r_1">
   <inertial>
     <origin xyz="7.587052287765051e-07 -0.023812499999986303 5.494367044764359e-06" rpy="0 0 0"/>
     <mass value="0.5"/>
@@ -106,7 +143,7 @@
 </link>
 
 <joint name="imu_joint" type="fixed">
-  <origin xyz="0 0 0.2" rpy="0 0 0"/>
+  <origin xyz="0 0 0.18" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="imu_link"/>
   <axis xyz="0 0 0" />
