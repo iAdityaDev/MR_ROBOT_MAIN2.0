@@ -9,7 +9,7 @@ MrRobot is a versatile robotic system designed for autonomous navigation, object
 - Object recognition and interaction
 - Gazebo simulation environment
 - Real-time camera feed processing
-- Customizable movement and control parameters
+- Customizable movement and control parameters.
 
 ## Installation
 
