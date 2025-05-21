@@ -1,4 +1,4 @@
-# MrRobot README
+l# MrRobot README
 
 ## Project Overview
 MrRobot is a versatile robotic system designed for autonomous navigation, object recognition, and real-time environmental interaction. It integrates with ROS 2 for efficient control and Gazebo for high-fidelity simulations. While it utilizes ArUco markers for localization, it also supports other navigation techniques, making it adaptable for various applications.
